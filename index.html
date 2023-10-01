@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./mokepon.js"></script>
+    <link rel="stylesheet" href="mokepon.css">
+    <title>Mokepon</title>
+</head>
+<body>
+    <h1 id="title">MOKEPON !</h1>
+
+    <section id="choose-pet">  
+        <h2>Select your pet:</h2>
+        
+            <label for="hipodoge">Hipodoge</label>
+            <input type="radio" name="pet" id="hipodoge">
+            
+            <label for="capipepo">Capipepo</label>
+            <input type="radio" name="pet" id="capipepo">
+            
+            <label id="ratigueya1" for="ratigueya">Ratigueya</label>
+            <input type="radio" name="pet" id="ratigueya">
+
+        <button id="pet-button">Select</button>
+    </section>
+    
+    <section id="choose-attack">
+        <h2>Select your attack</h2>
+        
+        <p>Your pet <span id="pet-player"></span> has <span id="player-lifes">3</span> lifes</p>
+        <p>Enemy's pet <span id="pet-enemy"></span> has <span id="enemy-lifes">3</span> lifes</p>
+
+        <p>
+            <button id="fire-button">Fire 🔥</button>
+            <button id="water-button">Water 💧</button>
+            <button id="ground-button">Ground 🌱</button>
+        </p>
+    </section>
+
+        <section id="messages">       
+        </section>
+
+        <section id="reset-game">
+            <button id="reset-button">Reset</button>
+        </section>
+</body>
+</html>
