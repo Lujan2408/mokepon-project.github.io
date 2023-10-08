@@ -14,6 +14,9 @@ function startGame() {
     let groundButton = document.getElementById("ground-button")
     groundButton.addEventListener("click", groundAttack)
 
+    let resetButton = document.getElementById("reset-button")
+    resetButton.addEventListener("click", resetGame)
+
 }
 
  
@@ -127,6 +130,17 @@ function creatFinalMessage(finalResult) {
     
     messagesSection.appendChild(paragraph)
 
+    let fireButton = document.getElementById("fire-button")
+    fireButton.disabled = true 
+    let waterButton = document.getElementById("water-button")
+    waterButton.disabled = true 
+    let groundButton = document.getElementById("ground-button")
+    groundButton.disabled = true 
+
+}
+
+function resetGame(){
+    location.reload()
 }
 
 function random (min,max) {
