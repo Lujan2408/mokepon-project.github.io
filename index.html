@@ -4,23 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./mokepon.js"></script>
-    <link rel="stylesheet" href="mokepon.css">
+    <link rel="stylesheet" href="./styles.css">
     <title>Mokepon</title>
 </head>
 <body>
-    <h1 id="title">MOKEPON !</h1>
-
-    <section id="choose-pet">  
-        <h2>Select your pet:</h2>
+    <section id="choose-pet"> 
+        <h1 class="main-title">Mokepon</h1>
         
-            <label for="hipodoge">Hipodoge</label>
-            <input type="radio" name="pet" id="hipodoge">
-            
-            <label for="capipepo">Capipepo</label>
-            <input type="radio" name="pet" id="capipepo">
-            
-            <label id="ratigueya1" for="ratigueya">Ratigueya</label>
-            <input type="radio" name="pet" id="ratigueya">
+        <h2 class="second-title">Select your pet:</h2>
+
+            <div class="cards">
+                <label class="mokepon-card" for="hipodoge">
+                    <p>Hipodoge</p>
+                    <img src="./assets/mokepons_mokepon_hipodoge_attack.webp" alt="Hipodoge">
+                </label>
+                <input type="radio" name="pet" id="hipodoge">
+                
+                <label class="mokepon-card" for="capipepo">
+                    <p>Capipepo</p>
+                    <img src="./assets/mokepons_mokepon_capipepo_attack.webp" alt="Capipepo">
+                </label>
+                <input type="radio" name="pet" id="capipepo">
+                
+                <label class="mokepon-card" for="ratigueya">
+                    <p>Ratigueya</p>
+                    <img src="./assets/mokepons_mokepon_ratigueya_attack.webp" alt="Ratigueya">
+                </label>
+                <input type="radio" name="pet" id="ratigueya">
+            </div>
 
         <button id="pet-button">Select</button>
     </section>

@@ -1,0 +1,91 @@
+@import 'https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap'; 
+/* font-family:fredoka one,cursive;  */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+/* font-family: 'Roboto Mono', monospace; */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+/* font-family: 'Poppins', sans-serif; */
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: url(./assets/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#choose-pet {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family:fredoka one,cursive;
+}
+
+#choose-pet {
+    backdrop-filter: blur(12px);
+    margin: 150px auto;
+    width: 50%;
+}
+
+.main-title{
+    margin: 20px;  
+    font-size: 58px;
+}
+
+.second-title {
+    margin: 20px;
+    font-size: 32px;
+}
+
+.cards {
+    display: flex;
+    gap: 10px;
+    margin: 20px;
+}
+
+.mokepon-card {
+    background-color: aliceblue;
+    color: black;
+    width: 180px;
+    height: 100px;  
+    padding: 10px; 
+    box-sizing: border-box;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.mokepon-card img {
+    width: 80px;
+}
+
+input {
+    display: none;
+}
+
+#pet-button {
+    background-color: transparent;
+    border-radius: 20px;
+    border: solid white;
+    color: white;
+    font-family: 'Roboto Mono', monospace;
+    margin: 20px;
+    width: 180px;
+    height: 40px;
+}
+
+/* #reset-button {
+    background-color: blue;
+    height: 100px;
+    height: 100px;
+    padding: 20px;
+} */

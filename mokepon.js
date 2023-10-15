@@ -4,8 +4,14 @@ let playerLifes = 3
 let enemyLifes = 3
 
 function startGame() {
+    let chooseAttackSection = document.getElementById("choose-attack")
+    chooseAttackSection.style.display = 'none'
+
+    let resetGameButton = document.getElementById('reset-game')
+    resetGameButton.style.display = 'none'
+
     let playerPetButton = document.getElementById("pet-button")
-    playerPetButton.addEventListener("click", selectPlayerPetButton)
+    playerPetButton.addEventListener("click", selectPlayerPet)
 
     let fireButton = document.getElementById("fire-button")
     fireButton.addEventListener("click", fireAttack)
@@ -19,8 +25,13 @@ function startGame() {
 
 }
 
- 
-function selectPlayerPetButton() {
+function selectPlayerPet() {
+    let chooseAttackSection = document.getElementById("choose-attack")
+    chooseAttackSection.style.display = 'block'
+
+    let selectPetSection = document.getElementById("choose-pet")
+    selectPetSection.style.display = 'none'
+    
     let inputHipodoge = document.getElementById("hipodoge")
     let inputCapipepo = document.getElementById("capipepo")
     let inputRatigueya = document.getElementById("ratigueya")
@@ -68,7 +79,6 @@ function groundAttack () {
     randonEnemyAttack()
 }
 
-
 function randonEnemyAttack () {
     let randomAttack = random(1,3) 
 
@@ -88,13 +98,13 @@ function combat () {
     let spanEnemyLifes = document.getElementById("enemy-lifes") 
  
     if ( enemyAttack == playerAttack ){
-        creatMessage(" - TIE")
+        createMessage(" - TIE")
     } else if ( playerAttack == "FIRE" && enemyAttack == "GROUND" || playerAttack == "WATER" && enemyAttack == "FIRE" || playerAttack == "GROUND" && enemyAttack == "WATER" ) { 
-        creatMessage(" - YOU WON")
+        createMessage(" - YOU WON")
         enemyLifes --
         spanEnemyLifes.innerHTML = enemyLifes
     } else {
-        creatMessage(" - YOU LOST")
+        createMessage(" - YOU LOST")
         playerLifes -- 
         spanPlayerLifes.innerHTML = playerLifes  
     } 
@@ -111,7 +121,7 @@ function checkLifes () {
     }
 }
 
-function creatMessage (result) { 
+function createMessage (result) { 
     let messagesSection = document.getElementById("messages")
 
     let paragraph = document.createElement('p')
@@ -123,6 +133,9 @@ function creatMessage (result) {
 }
 
 function creatFinalMessage(finalResult) { 
+    let resetGameButton = document.getElementById('reset-game')
+    resetGameButton.style.display = 'block'
+    
     let messagesSection = document.getElementById("messages")
 
     let paragraph = document.createElement('p')
