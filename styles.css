@@ -16,12 +16,14 @@
 body {
     background-image: url(./assets/background.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; 
 }
+
+/* first screen section */ 
 
 #choose-pet {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     color: white;
@@ -35,6 +37,7 @@ body {
 }
 
 .main-title{
+    font-family:fredoka one,cursive;
     margin: 20px;  
     font-size: 58px;
 }
@@ -42,6 +45,7 @@ body {
 .second-title {
     margin: 20px;
     font-size: 32px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .cards {
@@ -64,6 +68,11 @@ body {
     font-family: 'Roboto Mono', monospace;
 }
 
+.mokepon-card:hover {
+    background-color: rgba(236, 246, 255, 0.749);
+    cursor: pointer;
+}
+
 .mokepon-card img {
     width: 80px;
 }
@@ -72,13 +81,49 @@ input {
     display: none;
 }
 
-#pet-button {
+#select-pet-button {
     background-color: transparent;
     border-radius: 20px;
     border: solid white;
     color: white;
     font-family: 'Roboto Mono', monospace;
     margin: 20px;
+    width: 180px;
+    height: 40px;
+}
+
+#select-pet-button {
+    cursor: pointer;
+}
+
+/* second screen section */
+
+#choose-attack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family:fredoka one,cursive;
+}
+
+#choose-attack {
+    backdrop-filter: blur(12px);
+    margin: 150px auto;
+    width: 50%;
+}
+ 
+.attack-button-section{
+    gap: 10px;
+    margin: 20px;
+}
+
+.attack-buttons {
+    background-color: aliceblue;
+    border-color: transparent;
+    border-radius: 20px;
+    color: black;
+    font-family: 'Roboto Mono', monospace;
     width: 180px;
     height: 40px;
 }

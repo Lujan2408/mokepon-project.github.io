@@ -33,27 +33,33 @@
                 <input type="radio" name="pet" id="ratigueya">
             </div>
 
-        <button id="pet-button">Select</button>
+        <button id="select-pet-button">Select</button>
     </section>
     
     <section id="choose-attack">
-        <h2>Select your attack</h2>
+        <h1 class="main-title">Mokepon</h1>
+
+        <h2 class="second-title">Select your attack:</h2>
         
-        <p>Your pet <span id="pet-player"></span> has <span id="player-lifes">3</span> lifes</p>
-        <p>Enemy's pet <span id="pet-enemy"></span> has <span id="enemy-lifes">3</span> lifes</p>
+        <div class="attack-button-section">
+            <button id="fire-button" class="attack-buttons">Fire 🔥</button>
+            <button id="water-button" class="attack-buttons">Water 💧</button>
+            <button id="ground-button" class="attack-buttons">Ground 🌱</button>
+        </div>
 
-        <p>
-            <button id="fire-button">Fire 🔥</button>
-            <button id="water-button">Water 💧</button>
-            <button id="ground-button">Ground 🌱</button>
-        </p>
-    </section>
+        <div>
+            <section id="messages">       
+            </section>
+        
+            <section id="reset-game">
+                <button id="reset-button">Reset</button>
+            </section>
+        </div>
 
-        <section id="messages">       
-        </section>
-
-        <section id="reset-game">
-            <button id="reset-button">Reset</button>
-        </section>
+        <div>
+            <p>Your pet <span id="pet-player"></span> has <span id="player-lifes">3</span> lifes</p>
+            <p>Enemy's pet <span id="pet-enemy"></span> has <span id="enemy-lifes">3</span> lifes</p> 
+        </div>
+    </section>    
 </body>
 </html>

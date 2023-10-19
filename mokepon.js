@@ -10,7 +10,7 @@ function startGame() {
     let resetGameButton = document.getElementById('reset-game')
     resetGameButton.style.display = 'none'
 
-    let playerPetButton = document.getElementById("pet-button")
+    let playerPetButton = document.getElementById("select-pet-button")
     playerPetButton.addEventListener("click", selectPlayerPet)
 
     let fireButton = document.getElementById("fire-button")
@@ -27,7 +27,7 @@ function startGame() {
 
 function selectPlayerPet() {
     let chooseAttackSection = document.getElementById("choose-attack")
-    chooseAttackSection.style.display = 'block'
+    chooseAttackSection.style.display = 'flex'
 
     let selectPetSection = document.getElementById("choose-pet")
     selectPetSection.style.display = 'none'
