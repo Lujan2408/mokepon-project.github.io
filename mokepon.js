@@ -98,13 +98,13 @@ function combat () {
     let spanEnemyLifes = document.getElementById("enemy-lifes") 
  
     if ( enemyAttack == playerAttack ){
-        createMessage(" - TIE")
+        createMessage(" TIE")
     } else if ( playerAttack == "FIRE" && enemyAttack == "GROUND" || playerAttack == "WATER" && enemyAttack == "FIRE" || playerAttack == "GROUND" && enemyAttack == "WATER" ) { 
-        createMessage(" - YOU WON")
+        createMessage(" YOU WON")
         enemyLifes --
         spanEnemyLifes.innerHTML = enemyLifes
     } else {
-        createMessage(" - YOU LOST")
+        createMessage(" YOU LOST")
         playerLifes -- 
         spanPlayerLifes.innerHTML = playerLifes  
     } 
@@ -122,12 +122,19 @@ function checkLifes () {
 }
 
 function createMessage (result) { 
-    let messagesSection = document.getElementById("messages")
+    let messagesSection = document.getElementById("result")
+    let playerAttacks = document.getElementById("player-attacks")
+    let enemyAttacks = document.getElementById("enemy-attacks")
 
-    let paragraph = document.createElement('p')
-    paragraph.innerHTML = "Your pet attacked with " + playerAttack + ", Enemy's pet attacked with " + enemyAttack + result 
+    let newPlayerAttack = document.createElement('p')
+    let newEnemyAttack = document.createElement('p')
+
+    messagesSection.innerHTML = result
+    newPlayerAttack.innerHTML = playerAttack
+    newEnemyAttack.innerHTML = enemyAttack
     
-    messagesSection.appendChild(paragraph)
+    playerAttacks.appendChild(newPlayerAttack)
+    enemyAttacks.appendChild(newEnemyAttack)
 
 
 }
@@ -136,12 +143,9 @@ function creatFinalMessage(finalResult) {
     let resetGameButton = document.getElementById('reset-game')
     resetGameButton.style.display = 'block'
     
-    let messagesSection = document.getElementById("messages")
+    let messagesSection = document.getElementById("result")
 
-    let paragraph = document.createElement('p')
-    paragraph.innerHTML = finalResult
-    
-    messagesSection.appendChild(paragraph)
+    messagesSection.innerHTML = finalResult
 
     let fireButton = document.getElementById("fire-button")
     fireButton.disabled = true 
