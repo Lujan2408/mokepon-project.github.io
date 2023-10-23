@@ -152,3 +152,34 @@ input {
     grid-template-columns: 100px 100px;
     place-items: center;
 }
+
+/* Mobile */
+
+@media (max-width: 568px) {
+    .cards {
+        flex-direction: column;
+    }
+
+    #choose-pet{
+        width: 90%;
+    }
+}
+
+/* tablet */
+
+@media (max-width: 768px) {
+    .cards {
+        flex-direction: column;
+    }
+
+    #choose-pet{
+        width: 90%;
+    }
+}
+
+/* Laptop */
+@media (max-width: 1024px) {
+    #choose-pet{
+        width: 90%;
+    }
+}
