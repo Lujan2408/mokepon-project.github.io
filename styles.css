@@ -14,7 +14,7 @@
 }
 
 body {
-    background-image: url(./assets/background.jpg);
+    background-image: url(./assets/background-3.jpg);
     background-repeat: no-repeat;
     background-size: cover; 
 }
@@ -31,7 +31,6 @@ body {
 }
 
 #choose-pet {
-    backdrop-filter: blur(12px);
     margin: 150px auto;
     width: 50%;
 }
@@ -43,14 +42,14 @@ body {
 }
 
 .second-title {
-    margin: 20px;
+    margin: 20px 20px 0px 20px;
     font-size: 32px;
     font-family: 'Poppins', sans-serif;
 }
 
 .cards {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     margin: 20px;
 }
 
@@ -69,8 +68,12 @@ body {
 }
 
 .mokepon-card:hover {
-    background-color: rgba(236, 246, 255, 0.749);
     cursor: pointer;
+}
+
+input:checked + label{
+    background-color: rgba(182, 239, 255, 0.982);
+    box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.3);
 }
 
 .mokepon-card img {
@@ -96,6 +99,12 @@ input {
     cursor: pointer;
 }
 
+#select-pet-button:hover {
+    background-color: rgba(182, 239, 255, 0.982);
+    color: black;
+    border-color: transparent;
+}
+
 /* second screen section */
 
 #choose-attack {
@@ -108,12 +117,12 @@ input {
 }
 
 #choose-attack {
-    backdrop-filter: blur(12px);
     margin: 150px auto;
     width: 50%;
 }
  
 .attack-button-section{
+    display: flex;
     gap: 10px;
     margin: 20px;
 }
@@ -150,17 +159,27 @@ input {
 .attacks {
     display: grid;
     grid-template-columns: 100px 100px;
-    place-items: center;
+    margin: 20px;
+}
+
+.player-attack, .enemy-attack {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Mobile */
 
 @media (max-width: 568px) {
-    .cards {
+    .cards, .attack-button-section {
         flex-direction: column;
     }
 
     #choose-pet{
+        width: 90%;
+    }
+
+    #choose-attack {
         width: 90%;
     }
 }
@@ -168,7 +187,7 @@ input {
 /* tablet */
 
 @media (max-width: 768px) {
-    .cards {
+    .cards, .attack-button-section {
         flex-direction: column;
     }
 

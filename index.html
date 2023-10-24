@@ -14,23 +14,23 @@
         <h2 class="second-title">Select your pet:</h2>
 
             <div class="cards">
+                <input type="radio" name="pet" id="hipodoge">
                 <label class="mokepon-card" for="hipodoge">
                     <p>Hipodoge</p>
                     <img src="./assets/mokepons_mokepon_hipodoge_attack.webp" alt="Hipodoge">
                 </label>
-                <input type="radio" name="pet" id="hipodoge">
-                
+                            
+                <input type="radio" name="pet" id="capipepo">
                 <label class="mokepon-card" for="capipepo">
                     <p>Capipepo</p>
                     <img src="./assets/mokepons_mokepon_capipepo_attack.webp" alt="Capipepo">
                 </label>
-                <input type="radio" name="pet" id="capipepo">
                 
+                <input type="radio" name="pet" id="ratigueya">
                 <label class="mokepon-card" for="ratigueya">
                     <p>Ratigueya</p>
                     <img src="./assets/mokepons_mokepon_ratigueya_attack.webp" alt="Ratigueya">
                 </label>
-                <input type="radio" name="pet" id="ratigueya">
             </div>
 
         <button id="select-pet-button">Select</button>
@@ -56,12 +56,12 @@
             </div>
 
         <div class="attacks">
-            <div>
+            <div class="player-attack">
                 <p id="player-lifes">3</p>
                 <p id="pet-player"></p>
                 <div id="player-attacks"></div>
             </div>
-            <div>
+            <div class="enemy-attack" >
                 <p id="enemy-lifes">3</p>
                 <p id="pet-enemy"></p>
                 <div id="enemy-attacks"></div>
