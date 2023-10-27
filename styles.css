@@ -194,6 +194,14 @@ input {
     #choose-pet{
         width: 90%;
     }
+
+    #choose-attack {
+        width: 80%;
+    }
+
+    .attacks {
+        grid-template-columns: 1fr; 
+    } 
 }
 
 /* Laptop */
