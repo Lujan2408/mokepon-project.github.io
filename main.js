@@ -1,42 +1,103 @@
+const chooseAttackSection = document.getElementById("choose-attack")
+const resetGameButton = document.getElementById('reset-game')
+const playerPetButton = document.getElementById("select-pet-button")
+const fireButton = document.getElementById("fire-button")
+const waterButton = document.getElementById("water-button")
+const groundButton = document.getElementById("ground-button")
+const resetButton = document.getElementById("reset-button")
+
+const selectPetSection = document.getElementById("choose-pet")
+const inputHipodoge = document.getElementById("hipodoge")
+const inputCapipepo = document.getElementById("capipepo")
+const inputRatigueya = document.getElementById("ratigueya")
+const petPlayerSpan = document.getElementById("pet-player")
+
+const petEnemySpan = document.getElementById("pet-enemy")
+
+const spanPlayerLifes = document.getElementById("player-lifes") 
+const spanEnemyLifes = document.getElementById("enemy-lifes")
+
+const messagesSection = document.getElementById("result")
+const playerAttacks = document.getElementById("player-attacks")
+const enemyAttacks = document.getElementById("enemy-attacks")
+const cardsContainers = document.getElementById("cardsContainers") 
+
+let mokepones = [] 
+let mokeponesOption 
+
 let playerAttack 
 let enemyAttack  
 let playerLifes = 3 
 let enemyLifes = 3
 
-function startGame() {
-    let chooseAttackSection = document.getElementById("choose-attack")
-    chooseAttackSection.style.display = 'none'
+class Mokepon {
+    constructor(name, image, life) {
+        this.name = name 
+        this.image = image
+        this.life = life
+        this.attacks = []
+    }
+}
 
-    let resetGameButton = document.getElementById('reset-game')
+let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp', '5' )
+
+let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.webp', '5')
+
+let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.webp', '5')
+
+hipodoge.attacks.push( 
+    { name: '💧', id: 'water-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '🔥', id: 'fire-button' },
+    { name: '🌱', id: 'ground-button' }
+)
+
+capipepo.attacks.push( 
+    { name: '🌱', id: 'ground-button' },
+    { name: '🌱', id: 'ground-button' },
+    { name: '🌱', id: 'ground-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '🔥', id: 'fire-button' }
+)
+
+ratigueya.attacks.push( 
+    { name: '🔥', id: 'fire-button' },
+    { name: '🔥', id: 'fire-button' },
+    { name: '🔥', id: 'fire-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '🌱', id: 'ground-button' }
+)
+
+mokepones.push(hipodoge,capipepo, ratigueya) 
+
+function startGame() {
+    chooseAttackSection.style.display = 'none'
     resetGameButton.style.display = 'none'
 
-    let playerPetButton = document.getElementById("select-pet-button")
+    mokepones.forEach((mokepon) => {
+        mokeponesOption = `
+        <input type="radio" name="pet" id=${mokepon.name}>
+                <label class="mokepon-card" for=${mokepon.name}>
+                    <p>${mokepon.name}</p>
+                    <img src=${mokepon.image} alt=${mokepon.name}>
+                </label>
+        ` 
+        cardsContainers.innerHTML += mokeponesOption
+    })
+
     playerPetButton.addEventListener("click", selectPlayerPet)
-
-    let fireButton = document.getElementById("fire-button")
     fireButton.addEventListener("click", fireAttack)
-    let waterButton = document.getElementById("water-button")
     waterButton.addEventListener("click", waterAttack)
-    let groundButton = document.getElementById("ground-button")
-    groundButton.addEventListener("click", groundAttack)
-
-    let resetButton = document.getElementById("reset-button")
+    groundButton.addEventListener("click", groundAttack)  
     resetButton.addEventListener("click", resetGame)
 
 }
 
 function selectPlayerPet() {
-    let chooseAttackSection = document.getElementById("choose-attack")
     chooseAttackSection.style.display = 'flex'
-
-    let selectPetSection = document.getElementById("choose-pet")
     selectPetSection.style.display = 'none'
     
-    let inputHipodoge = document.getElementById("hipodoge")
-    let inputCapipepo = document.getElementById("capipepo")
-    let inputRatigueya = document.getElementById("ratigueya")
-    let petPlayerSpan = document.getElementById("pet-player")
-
     if(inputHipodoge.checked){
         petPlayerSpan.innerHTML = "Hipodoge"
     } else if(inputCapipepo.checked) {
@@ -46,13 +107,11 @@ function selectPlayerPet() {
     } else {
         alert("You must choose a pet")
     }
-
     selectEnemyPet()
 }
 
 function selectEnemyPet() {
-    let randomPet = random(1,3) 
-    let petEnemySpan = document.getElementById("pet-enemy") 
+    let randomPet = random(1,3)  
 
     if(randomPet == 1) {
         petEnemySpan.innerHTML = "Hipodoge"
@@ -93,10 +152,8 @@ function randonEnemyAttack () {
     combat()
 }
 
-function combat () {
-    let spanPlayerLifes = document.getElementById("player-lifes") 
-    let spanEnemyLifes = document.getElementById("enemy-lifes") 
- 
+function combat () { 
+
     if ( enemyAttack == playerAttack ){
         createMessage(" TIE")
     } else if ( playerAttack == "FIRE" && enemyAttack == "GROUND" || playerAttack == "WATER" && enemyAttack == "FIRE" || playerAttack == "GROUND" && enemyAttack == "WATER" ) { 
@@ -122,10 +179,6 @@ function checkLifes () {
 }
 
 function createMessage (result) { 
-    let messagesSection = document.getElementById("result")
-    let playerAttacks = document.getElementById("player-attacks")
-    let enemyAttacks = document.getElementById("enemy-attacks")
-
     let newPlayerAttack = document.createElement('p')
     let newEnemyAttack = document.createElement('p')
 
@@ -135,25 +188,15 @@ function createMessage (result) {
     
     playerAttacks.appendChild(newPlayerAttack)
     enemyAttacks.appendChild(newEnemyAttack)
-
-
 }
 
 function creatFinalMessage(finalResult) { 
-    let resetGameButton = document.getElementById('reset-game')
-    resetGameButton.style.display = 'block'
-    
-    let messagesSection = document.getElementById("result")
-
+    resetGameButton.style.display = 'block'    
     messagesSection.innerHTML = finalResult
 
-    let fireButton = document.getElementById("fire-button")
     fireButton.disabled = true 
-    let waterButton = document.getElementById("water-button")
     waterButton.disabled = true 
-    let groundButton = document.getElementById("ground-button")
     groundButton.disabled = true 
-
 }
 
 function resetGame(){
