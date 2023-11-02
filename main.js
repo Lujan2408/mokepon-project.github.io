@@ -7,9 +7,6 @@ const groundButton = document.getElementById("ground-button")
 const resetButton = document.getElementById("reset-button")
 
 const selectPetSection = document.getElementById("choose-pet")
-const inputHipodoge = document.getElementById("hipodoge")
-const inputCapipepo = document.getElementById("capipepo")
-const inputRatigueya = document.getElementById("ratigueya")
 const petPlayerSpan = document.getElementById("pet-player")
 
 const petEnemySpan = document.getElementById("pet-enemy")
@@ -24,6 +21,10 @@ const cardsContainers = document.getElementById("cardsContainers")
 
 let mokepones = [] 
 let mokeponesOption 
+
+let inputHipodoge
+let inputCapipepo
+let inputRatigueya
 
 let playerAttack 
 let enemyAttack  
@@ -84,6 +85,10 @@ function startGame() {
                 </label>
         ` 
         cardsContainers.innerHTML += mokeponesOption
+
+        inputHipodoge = document.getElementById("Hipodoge")
+        inputCapipepo = document.getElementById("Capipepo")
+        inputRatigueya = document.getElementById("Ratigueya")
     })
 
     playerPetButton.addEventListener("click", selectPlayerPet)
@@ -99,11 +104,11 @@ function selectPlayerPet() {
     selectPetSection.style.display = 'none'
     
     if(inputHipodoge.checked){
-        petPlayerSpan.innerHTML = "Hipodoge"
+        petPlayerSpan.innerHTML = inputHipodoge.id
     } else if(inputCapipepo.checked) {
-        petPlayerSpan.innerHTML = "Capipepo"
+        petPlayerSpan.innerHTML = inputCapipepo.id
     } else if(inputRatigueya.checked){
-        petPlayerSpan.innerHTML = "Ratigueya"
+        petPlayerSpan.innerHTML = inputRatigueya.id
     } else {
         alert("You must choose a pet")
     }
@@ -111,15 +116,9 @@ function selectPlayerPet() {
 }
 
 function selectEnemyPet() {
-    let randomPet = random(1,3)  
+    let randomPet = random(0, mokepones.length -1)  
 
-    if(randomPet == 1) {
-        petEnemySpan.innerHTML = "Hipodoge"
-    } else if(randomPet == 2) {
-        petEnemySpan.innerHTML = "Capipepo"
-    } else {
-        petEnemySpan.innerHTML = "Ratigueya"
-    }
+    petEnemySpan.innerHTML = mokepones[randomPet].name
 
 }
 
