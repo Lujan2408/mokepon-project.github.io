@@ -30,6 +30,11 @@ let waterButton
 let groundButton 
 let buttons = []
 
+let indexPlayerAttack
+let indexEnemyAttack
+let playerVictories = 0 
+let enemyVictories = 0
+
 let petPlayer 
 let playerAttack = []
 let enemyAttack = []
@@ -155,14 +160,17 @@ function attacksSequence(){
                 playerAttack.push('FIRE')
                 console.log(playerAttack)
                 button.style.background = "rgb(170, 170, 170)"
+                button.disabled = true 
             } else if(e.target.textContent === "💧") {
                 playerAttack.push('WATER')
                 console.log(playerAttack)
                 button.style.background = "rgb(170, 170, 170)"
+                button.disabled = true 
             } else {
                 playerAttack.push('GROUND')
                 console.log(playerAttack)
                 button.style.background = "rgb(170, 170, 170)"
+                button.disabled = true 
             }
             randonEnemyAttack()
         })
@@ -189,32 +197,60 @@ function randonEnemyAttack() {
         enemyAttack.push("GROUND")
     }
     console.log(enemyAttack)
-    combat()
+    startFight()
 }
 
-function combat () { 
+function startFight() {
+    if (playerAttack.length === 5) {
+        combat()
+    }
+} 
 
-    if ( enemyAttack == playerAttack ){
-        createMessage(" TIE")
-    } else if ( playerAttack == "FIRE" && enemyAttack == "GROUND" || playerAttack == "WATER" && enemyAttack == "FIRE" || playerAttack == "GROUND" && enemyAttack == "WATER" ) { 
-        createMessage(" YOU WON")
-        enemyLifes --
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else {
-        createMessage(" YOU LOST")
-        playerLifes -- 
-        spanPlayerLifes.innerHTML = playerLifes  
+function bothPlayersIndex (player, enemy) {
+    indexPlayerAttack = playerAttack[player]
+    indexEnemyAttack = enemyAttack[enemy]
+}
+
+function combat() { 
+
+    for (let index = 0; index < playerAttack.length; index++) {
+        if (playerAttack[index] === enemyAttack[index]) {
+            bothPlayersIndex (index, index)
+            createMessage(" TIE")
+        } else if (playerAttack[index] === 'FIRE' && enemyAttack[index] === 'GROUND') {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU WON")
+            playerVictories++
+            spanPlayerLifes.innerHTML = playerVictories
+        } else if (playerAttack[index] === 'WATER' && enemyAttack[index] === 'FIRE') {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU WON")
+            playerVictories++
+            spanPlayerLifes.innerHTML = playerVictories
+        } else if (playerAttack[index] === 'GROUND' && enemyAttack[index] === 'WATER') {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU WON")
+            playerVictories++
+            spanPlayerLifes.innerHTML = playerVictories
+        } else {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU LOST")
+            enemyVictories++
+            spanEnemyLifes.innerHTML = enemyVictories
+        }
     } 
 
-    checkLifes() 
+    checkVictories() 
 
 }
 
-function checkLifes () {
-    if(playerLifes == 0) {
-        creatFinalMessage("YOU LOST :(")
-    } else if(enemyLifes == 0) {
+function checkVictories () {
+    if(playerVictories === enemyVictories) {
+        creatFinalMessage("This was a Tie!")
+    } else if(playerVictories > enemyVictories) {
         creatFinalMessage("YOU WIN!! :)")
+    } else {
+        createMessage("YOU LOST :(")
     }
 }
 
@@ -223,8 +259,8 @@ function createMessage (result) {
     let newEnemyAttack = document.createElement('p')
 
     messagesSection.innerHTML = result
-    newPlayerAttack.innerHTML = playerAttack
-    newEnemyAttack.innerHTML = enemyAttack
+    newPlayerAttack.innerHTML = indexPlayerAttack
+    newEnemyAttack.innerHTML = indexEnemyAttack
     
     playerAttacks.appendChild(newPlayerAttack)
     enemyAttacks.appendChild(newEnemyAttack)
@@ -233,10 +269,6 @@ function createMessage (result) {
 function creatFinalMessage(finalResult) { 
     resetGameButton.style.display = 'block'    
     messagesSection.innerHTML = finalResult
-
-    fireButton.disabled = true 
-    waterButton.disabled = true 
-    groundButton.disabled = true 
 }
 
 function resetGame(){
