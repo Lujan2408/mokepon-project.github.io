@@ -1,10 +1,6 @@
 const chooseAttackSection = document.getElementById("choose-attack")
 const resetGameButton = document.getElementById('reset-game')
 const playerPetButton = document.getElementById("select-pet-button")
-const fireButton = document.getElementById("fire-button")
-const waterButton = document.getElementById("water-button")
-const groundButton = document.getElementById("ground-button")
-const resetButton = document.getElementById("reset-button")
 
 const selectPetSection = document.getElementById("choose-pet")
 const petPlayerSpan = document.getElementById("pet-player")
@@ -17,17 +13,31 @@ const spanEnemyLifes = document.getElementById("enemy-lifes")
 const messagesSection = document.getElementById("result")
 const playerAttacks = document.getElementById("player-attacks")
 const enemyAttacks = document.getElementById("enemy-attacks")
-const cardsContainers = document.getElementById("cardsContainers") 
+const cardsContainer = document.getElementById("cardsContainer") 
+const attacksContainer = document.getElementById("attacksContainer")
 
 let mokepones = [] 
 let mokeponesOption 
+let mokeponAttacks
+let mokeponEnemyAttacks  
 
 let inputHipodoge
 let inputCapipepo
 let inputRatigueya
 
-let playerAttack 
-let enemyAttack  
+let fireButton 
+let waterButton 
+let groundButton 
+let buttons = []
+
+let indexPlayerAttack
+let indexEnemyAttack
+let playerVictories = 0 
+let enemyVictories = 0
+
+let petPlayer 
+let playerAttack = []
+let enemyAttack = []
 let playerLifes = 3 
 let enemyLifes = 3
 
@@ -84,18 +94,15 @@ function startGame() {
                     <img src=${mokepon.image} alt=${mokepon.name}>
                 </label>
         ` 
-        cardsContainers.innerHTML += mokeponesOption
+        cardsContainer.innerHTML += mokeponesOption
 
         inputHipodoge = document.getElementById("Hipodoge")
         inputCapipepo = document.getElementById("Capipepo")
         inputRatigueya = document.getElementById("Ratigueya")
     })
 
-    playerPetButton.addEventListener("click", selectPlayerPet)
-    fireButton.addEventListener("click", fireAttack)
-    waterButton.addEventListener("click", waterAttack)
-    groundButton.addEventListener("click", groundAttack)  
-    resetButton.addEventListener("click", resetGame)
+    playerPetButton.addEventListener("click", selectPlayerPet)  
+    resetGameButton.addEventListener("click", resetGame)
 
 }
 
@@ -105,75 +112,145 @@ function selectPlayerPet() {
     
     if(inputHipodoge.checked){
         petPlayerSpan.innerHTML = inputHipodoge.id
+        petPlayer = inputHipodoge.id
     } else if(inputCapipepo.checked) {
         petPlayerSpan.innerHTML = inputCapipepo.id
+        petPlayer = inputCapipepo.id
     } else if(inputRatigueya.checked){
         petPlayerSpan.innerHTML = inputRatigueya.id
+        petPlayer = inputRatigueya.id
     } else {
         alert("You must choose a pet")
     }
+
+    extractAttacks(petPlayer) 
     selectEnemyPet()
 }
+
+function extractAttacks(petPlayer) {
+    let attacks 
+    for (let i = 0; i < mokepones.length; i++) {
+        if (petPlayer === mokepones[i].name) {
+            attacks = mokepones[i].attacks
+        }
+        
+    }
+    showAttacks(attacks)
+}
+
+function showAttacks(attacks) {
+    attacks.forEach((attack) => {
+        mokeponAttacks = `
+        <button id=${attack.id} class="attack-buttons AButton">${attack.name}</button>
+        `
+
+        attacksContainer.innerHTML += mokeponAttacks
+    })
+
+    fireButton = document.getElementById("fire-button")
+    waterButton = document.getElementById("water-button")
+    groundButton = document.getElementById("ground-button")
+    buttons = document.querySelectorAll(".AButton") 
+}
+
+function attacksSequence(){
+    buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            if (e.target.textContent === "🔥") {
+                playerAttack.push('FIRE')
+                console.log(playerAttack)
+                button.style.background = "rgb(170, 170, 170)"
+                button.disabled = true 
+            } else if(e.target.textContent === "💧") {
+                playerAttack.push('WATER')
+                console.log(playerAttack)
+                button.style.background = "rgb(170, 170, 170)"
+                button.disabled = true 
+            } else {
+                playerAttack.push('GROUND')
+                console.log(playerAttack)
+                button.style.background = "rgb(170, 170, 170)"
+                button.disabled = true 
+            }
+            randonEnemyAttack()
+        })
+    })
+} 
 
 function selectEnemyPet() {
     let randomPet = random(0, mokepones.length -1)  
 
     petEnemySpan.innerHTML = mokepones[randomPet].name
+    mokeponEnemyAttacks = mokepones[randomPet].attacks 
 
+    attacksSequence()
 }
 
-function fireAttack () {
-    playerAttack = "FIRE"
-    randonEnemyAttack() 
-}
+function randonEnemyAttack() {
+    let randomAttack = random(0, mokeponEnemyAttacks.length -1) 
 
-function waterAttack () {
-    playerAttack = "WATER"
-    randonEnemyAttack()
-}
-
-function groundAttack () {
-    playerAttack = "GROUND"
-    randonEnemyAttack()
-}
-
-function randonEnemyAttack () {
-    let randomAttack = random(1,3) 
-
-    if (randomAttack == 1) {
-        enemyAttack = "FIRE"
-    } else if(randomAttack == 2) {
-        enemyAttack = "WATER"
+    if (randomAttack == 1 || randomAttack == 1) {
+        enemyAttack.push("FIRE")
+    } else if(randomAttack == 3 || randomAttack == 4) {
+        enemyAttack.push("WATER") 
     } else {
-        enemyAttack = "GROUND"
+        enemyAttack.push("GROUND")
     }
-
-    combat()
+    console.log(enemyAttack)
+    startFight()
 }
 
-function combat () { 
+function startFight() {
+    if (playerAttack.length === 5) {
+        combat()
+    }
+} 
 
-    if ( enemyAttack == playerAttack ){
-        createMessage(" TIE")
-    } else if ( playerAttack == "FIRE" && enemyAttack == "GROUND" || playerAttack == "WATER" && enemyAttack == "FIRE" || playerAttack == "GROUND" && enemyAttack == "WATER" ) { 
-        createMessage(" YOU WON")
-        enemyLifes --
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else {
-        createMessage(" YOU LOST")
-        playerLifes -- 
-        spanPlayerLifes.innerHTML = playerLifes  
+function bothPlayersIndex (player, enemy) {
+    indexPlayerAttack = playerAttack[player]
+    indexEnemyAttack = enemyAttack[enemy]
+}
+
+function combat() { 
+
+    for (let index = 0; index < playerAttack.length; index++) {
+        if (playerAttack[index] === enemyAttack[index]) {
+            bothPlayersIndex (index, index)
+            createMessage(" TIE")
+        } else if (playerAttack[index] === 'FIRE' && enemyAttack[index] === 'GROUND') {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU WON")
+            playerVictories++
+            spanPlayerLifes.innerHTML = playerVictories
+        } else if (playerAttack[index] === 'WATER' && enemyAttack[index] === 'FIRE') {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU WON")
+            playerVictories++
+            spanPlayerLifes.innerHTML = playerVictories
+        } else if (playerAttack[index] === 'GROUND' && enemyAttack[index] === 'WATER') {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU WON")
+            playerVictories++
+            spanPlayerLifes.innerHTML = playerVictories
+        } else {
+            bothPlayersIndex(index, index)
+            createMessage(" YOU LOST")
+            enemyVictories++
+            spanEnemyLifes.innerHTML = enemyVictories
+        }
     } 
 
-    checkLifes() 
+    checkVictories() 
 
 }
 
-function checkLifes () {
-    if(playerLifes == 0) {
-        creatFinalMessage("YOU LOST :(")
-    } else if(enemyLifes == 0) {
+function checkVictories () {
+    if(playerVictories === enemyVictories) {
+        creatFinalMessage("This was a Tie!")
+    } else if(playerVictories > enemyVictories) {
         creatFinalMessage("YOU WIN!! :)")
+    } else {
+        createMessage("YOU LOST :(")
     }
 }
 
@@ -182,8 +259,8 @@ function createMessage (result) {
     let newEnemyAttack = document.createElement('p')
 
     messagesSection.innerHTML = result
-    newPlayerAttack.innerHTML = playerAttack
-    newEnemyAttack.innerHTML = enemyAttack
+    newPlayerAttack.innerHTML = indexPlayerAttack
+    newEnemyAttack.innerHTML = indexEnemyAttack
     
     playerAttacks.appendChild(newPlayerAttack)
     enemyAttacks.appendChild(newEnemyAttack)
@@ -192,10 +269,6 @@ function createMessage (result) {
 function creatFinalMessage(finalResult) { 
     resetGameButton.style.display = 'block'    
     messagesSection.innerHTML = finalResult
-
-    fireButton.disabled = true 
-    waterButton.disabled = true 
-    groundButton.disabled = true 
 }
 
 function resetGame(){
