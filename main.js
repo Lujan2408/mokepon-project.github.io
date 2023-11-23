@@ -51,27 +51,43 @@ let mapBackground = new Image()
 mapBackground.src = './assets/canvas-background.jpg'
 
 class Mokepon {
-    constructor(name, image, life) {
+    constructor(name, image, life, imageMap, x = 10, y = 10) {
         this.name = name 
         this.image = image
         this.life = life
         this.attacks = []
-        this.x = 20
-        this.y = 30 
-        this.width = 80 
-        this.height = 80 
+        this.x = x
+        this.y = y
+        this.width = 65 
+        this.height = 65 
         this.mapImage = new Image() 
-        this.mapImage.src = image
+        this.mapImage.src = imageMap
         this.speedX = 0
         this.speedY = 0
     }
+
+    drawMokepon() {
+        lienzo.drawImage(
+            this.mapImage, 
+            this.x,
+            this.y, 
+            this.width,
+            this.height
+        )
+    }
 }
 
-let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp', '5' )
+let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp', 5, './assets/hipodoge.png')
 
-let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.webp', '5')
+let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.webp', 5, './assets/capipepo.png')
 
-let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.webp', '5')
+let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5, './assets/ratigueya.png')
+
+let hipodogeEnemy = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp', 5, './assets/hipodoge.png', 80, 250)
+
+let capipepoEnemy = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.webp', 5, './assets/capipepo.png', 450, 95)
+
+let ratigueyaEnemy = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5, './assets/ratigueya.png', 300, 220)
 
 hipodoge.attacks.push( 
     { name: '💧', id: 'water-button' },
@@ -313,14 +329,10 @@ function drawCanvas() {
         map.width,
         map.height 
     )
-
-    lienzo.drawImage(
-        petPlayerObject.mapImage, 
-        petPlayerObject.x,
-        petPlayerObject.y, 
-        petPlayerObject.width,
-        petPlayerObject.height
-    )
+    petPlayerObject.drawMokepon()
+    hipodogeEnemy.drawMokepon()
+    capipepoEnemy.drawMokepon()
+    ratigueyaEnemy.drawMokepon()
 }
 
 function moveUp() {
