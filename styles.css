@@ -45,6 +45,7 @@ body {
     margin: 20px 20px 0px 20px;
     font-size: 32px;
     font-family: 'Poppins', sans-serif;
+    color: white;
 }
 
 .cards {
@@ -114,9 +115,20 @@ input {
     align-items: center;
 }
 
+#see-map button {
+    background-color: transparent;
+    border-radius: 20px;
+    border: solid white;
+    color: white;
+    font-family: 'Roboto Mono', monospace;
+    width: 80px;
+    height: 40px;
+    margin: 10px 0px;
+}
+
 .main-title-canvas{
     font-family:fredoka one,cursive;
-    margin: 20px;  
+    margin: 20px;
     font-size: 35px;
     color: white;
 }
@@ -185,6 +197,14 @@ input {
 }
 
 /* Mobile */
+
+@media (max-width: 300px) {
+    #see-map div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
 
 @media (max-width: 568px) {
     .cards, .attack-button-section {

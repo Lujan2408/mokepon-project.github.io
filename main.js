@@ -69,8 +69,8 @@ class Mokepon {
         this.image = image
         this.life = life
         this.attacks = []
-        this.width = 40 
-        this.height = 40 
+        this.width = 45 
+        this.height = 45 
         this.x = random(0, map.width - this.width)
         this.y = random(0, map.height - this.height)
         this.mapImage = new Image() 
