@@ -333,6 +333,12 @@ function drawCanvas() {
     hipodogeEnemy.drawMokepon()
     capipepoEnemy.drawMokepon()
     ratigueyaEnemy.drawMokepon()
+
+    if (petPlayerObject.speedX !== 0 || petPlayerObject.speedY !== 0) {
+        checkCollision(hipodogeEnemy)
+        checkCollision(capipepoEnemy)
+        checkCollision(ratigueyaEnemy)
+    }
 }
 
 function moveUp() {
@@ -389,6 +395,28 @@ function getPetObject() {
         }
         
     }
+}
+
+function checkCollision(enemy) {
+    const upEnemy = enemy.y 
+    const downEnemy = enemy.y + enemy.height
+    const rightEnemy = enemy.x + enemy.width
+    const leftEnemy = enemy.x
+    
+    const upPet = petPlayerObject.y 
+    const downPet = petPlayerObject.y + petPlayerObject.height
+    const rightPet = petPlayerObject.x + petPlayerObject.width
+    const leftPet = petPlayerObject.x
+
+    if (
+        downPet < upEnemy || 
+        upPet > downEnemy ||
+        rightPet < leftEnemy || 
+        leftPet > rightEnemy
+    ) {
+        return
+    }
+    stopMovement()
 }
 
 window.addEventListener("load", startGame)
