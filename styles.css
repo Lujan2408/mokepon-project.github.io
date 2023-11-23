@@ -105,6 +105,26 @@ input {
     border-color: transparent;
 }
 
+/* canvas */
+
+#see-map {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-title-canvas{
+    font-family:fredoka one,cursive;
+    margin: 20px;  
+    font-size: 35px;
+    color: white;
+}
+
+#map {
+    border: 1px solid white;
+}
+
 /* second screen section */
 
 #choose-attack {

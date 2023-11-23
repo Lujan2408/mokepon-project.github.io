@@ -17,6 +17,16 @@
 
         <button id="select-pet-button">Select</button>
     </section>
+
+    <section id="see-map">
+        <h1 class="main-title-canvas">Go through the map with your pet</h1>
+        
+        <canvas id="map"></canvas>
+        <button onmouseup="stopMovement()" onmousedown="moveUp()">Up</button>
+        <button onmouseup="stopMovement()" onmousedown="moveLeft()">Left</button>
+        <button onmouseup="stopMovement()" onmousedown="moveDown()">Down</button>
+        <button onmouseup="stopMovement()" onmousedown="moveRight()">Right</button>
+    </section>
     
     <section id="choose-attack">
         <h1 class="main-title">Mokepon</h1>

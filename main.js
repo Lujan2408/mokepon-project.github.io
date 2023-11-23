@@ -16,6 +16,9 @@ const enemyAttacks = document.getElementById("enemy-attacks")
 const cardsContainer = document.getElementById("cardsContainer") 
 const attacksContainer = document.getElementById("attacksContainer")
 
+const seeMapSection = document.getElementById("see-map")
+const map = document.getElementById("map")
+
 let mokepones = [] 
 let mokeponesOption 
 let mokeponAttacks
@@ -41,12 +44,25 @@ let enemyAttack = []
 let playerLifes = 3 
 let enemyLifes = 3
 
+let lienzo = map.getContext("2d")
+let interval
+let mapBackground = new Image()
+mapBackground.src = './assets/canvas-background.jpg'
+
 class Mokepon {
     constructor(name, image, life) {
         this.name = name 
         this.image = image
         this.life = life
         this.attacks = []
+        this.x = 20
+        this.y = 30 
+        this.width = 80 
+        this.height = 80 
+        this.mapImage = new Image() 
+        this.mapImage.src = image
+        this.speedX = 0
+        this.speedY = 0
     }
 }
 
@@ -86,6 +102,8 @@ function startGame() {
     chooseAttackSection.style.display = 'none'
     resetGameButton.style.display = 'none'
 
+    seeMapSection.style.display = 'none'
+
     mokepones.forEach((mokepon) => {
         mokeponesOption = `
         <input type="radio" name="pet" id=${mokepon.name}>
@@ -107,8 +125,11 @@ function startGame() {
 }
 
 function selectPlayerPet() {
-    chooseAttackSection.style.display = 'flex'
+    // chooseAttackSection.style.display = 'flex'
     selectPetSection.style.display = 'none'
+
+    seeMapSection.style.display = 'flex'
+    startMap()
     
     if(inputHipodoge.checked){
         petPlayerSpan.innerHTML = inputHipodoge.id
@@ -278,5 +299,73 @@ function resetGame(){
 function random (min,max) {
     return Math.floor(Math.random() * (max - min +1) +min) 
 } 
+
+function drawCanvas() {
+    capipepo.x = capipepo.x + capipepo.speedX
+    capipepo.y = capipepo.y + capipepo.speedY
+
+    lienzo.clearRect(0, 0, map.width, map.height)
+    
+    lienzo.drawImage(
+        mapBackground, 
+        0,
+        0,
+        map.width,
+        map.height 
+    )
+
+    lienzo.drawImage(
+        capipepo.mapImage, 
+        capipepo.x,
+        capipepo.y, 
+        capipepo.width,
+        capipepo.height
+    )
+}
+
+function moveUp() {
+    capipepo.speedY = - 7
+}
+function moveLeft() {
+    capipepo.speedX = - 7 
+}
+function moveDown() {
+    capipepo.speedY = + 7
+}
+function moveRight() {
+    capipepo.speedX = + 7
+}
+
+function stopMovement() {
+    capipepo.speedX = 0 
+    capipepo.speedY = 0
+}
+
+function pressKey(event) {
+    switch (event.key) {
+        case 'ArrowUp':
+            moveUp()
+            break
+        case 'ArrowLeft':
+            moveLeft()
+            break 
+        case 'ArrowDown':
+            moveDown()
+            break
+        case 'ArrowRight': 
+            moveRight() 
+            break
+        default:
+            break
+    }
+}
+function startMap() {
+    map.width = 600 
+    map.height = 400
+    interval = setInterval(drawCanvas, 50)
+
+    window.addEventListener('keydown', pressKey)
+    window.addEventListener('keyup', stopMovement)
+}
 
 window.addEventListener("load", startGame)
