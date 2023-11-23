@@ -38,6 +38,7 @@ let indexEnemyAttack
 let playerVictories = 0 
 let enemyVictories = 0
 
+let petPlayerObject 
 let petPlayer 
 let playerAttack = []
 let enemyAttack = []
@@ -127,9 +128,7 @@ function startGame() {
 function selectPlayerPet() {
     // chooseAttackSection.style.display = 'flex'
     selectPetSection.style.display = 'none'
-
     seeMapSection.style.display = 'flex'
-    startMap()
     
     if(inputHipodoge.checked){
         petPlayerSpan.innerHTML = inputHipodoge.id
@@ -145,6 +144,7 @@ function selectPlayerPet() {
     }
 
     extractAttacks(petPlayer) 
+    startMap()
     selectEnemyPet()
 }
 
@@ -301,8 +301,8 @@ function random (min,max) {
 } 
 
 function drawCanvas() {
-    capipepo.x = capipepo.x + capipepo.speedX
-    capipepo.y = capipepo.y + capipepo.speedY
+    petPlayerObject.x = petPlayerObject.x + petPlayerObject.speedX
+    petPlayerObject.y = petPlayerObject.y + petPlayerObject.speedY
 
     lienzo.clearRect(0, 0, map.width, map.height)
     
@@ -315,30 +315,30 @@ function drawCanvas() {
     )
 
     lienzo.drawImage(
-        capipepo.mapImage, 
-        capipepo.x,
-        capipepo.y, 
-        capipepo.width,
-        capipepo.height
+        petPlayerObject.mapImage, 
+        petPlayerObject.x,
+        petPlayerObject.y, 
+        petPlayerObject.width,
+        petPlayerObject.height
     )
 }
 
 function moveUp() {
-    capipepo.speedY = - 7
+    petPlayerObject.speedY = - 7
 }
 function moveLeft() {
-    capipepo.speedX = - 7 
+    petPlayerObject.speedX = - 7 
 }
 function moveDown() {
-    capipepo.speedY = + 7
+    petPlayerObject.speedY = + 7
 }
 function moveRight() {
-    capipepo.speedX = + 7
+    petPlayerObject.speedX = + 7
 }
 
 function stopMovement() {
-    capipepo.speedX = 0 
-    capipepo.speedY = 0
+    petPlayerObject.speedX = 0 
+    petPlayerObject.speedY = 0
 }
 
 function pressKey(event) {
@@ -360,12 +360,23 @@ function pressKey(event) {
     }
 }
 function startMap() {
+    petPlayerObject = getPetObject(petPlayer)
+
     map.width = 600 
     map.height = 400
     interval = setInterval(drawCanvas, 50)
 
     window.addEventListener('keydown', pressKey)
     window.addEventListener('keyup', stopMovement)
+}
+
+function getPetObject() {
+    for (let i = 0; i < mokepones.length; i++) {
+        if (petPlayer === mokepones[i].name) {
+            return mokepones[i]
+        }
+        
+    }
 }
 
 window.addEventListener("load", startGame)
