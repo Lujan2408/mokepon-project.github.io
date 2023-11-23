@@ -1,3 +1,0 @@
-# Ignorar archivos .jpg y .webp en la carpeta assets
-assets/*.jpg
-assets/*.webp
