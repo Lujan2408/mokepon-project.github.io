@@ -45,21 +45,34 @@ let enemyAttack = []
 let playerLifes = 3 
 let enemyLifes = 3
 
+let heightWeAreLooking
+let mapWidth = window.innerWidth - 20 
+const maxWidthMap = 600 
+
+if (mapWidth > maxWidthMap) {
+   mapWidth = maxWidthMap - 20 
+}
+
+heightWeAreLooking = mapWidth * 400 / 600 
+
+map.width = mapWidth
+map.height = heightWeAreLooking
+
 let lienzo = map.getContext("2d")
 let interval
 let mapBackground = new Image()
 mapBackground.src = './assets/canvas-background.jpg'
 
 class Mokepon {
-    constructor(name, image, life, imageMap, x = 10, y = 10) {
+    constructor(name, image, life, imageMap) {
         this.name = name 
         this.image = image
         this.life = life
         this.attacks = []
-        this.x = x
-        this.y = y
-        this.width = 65 
-        this.height = 65 
+        this.width = 40 
+        this.height = 40 
+        this.x = random(0, map.width - this.width)
+        this.y = random(0, map.height - this.height)
         this.mapImage = new Image() 
         this.mapImage.src = imageMap
         this.speedX = 0
@@ -83,13 +96,20 @@ let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attac
 
 let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5, './assets/ratigueya.png')
 
-let hipodogeEnemy = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp', 5, './assets/hipodoge.png', 80, 250)
+let hipodogeEnemy = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.webp', 5, './assets/hipodoge.png')
 
-let capipepoEnemy = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.webp', 5, './assets/capipepo.png', 450, 95)
+let capipepoEnemy = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.webp', 5, './assets/capipepo.png')
 
-let ratigueyaEnemy = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5, './assets/ratigueya.png', 300, 220)
+let ratigueyaEnemy = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.webp', 5, './assets/ratigueya.png')
 
 hipodoge.attacks.push( 
+    { name: '💧', id: 'water-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '🔥', id: 'fire-button' },
+    { name: '🌱', id: 'ground-button' }
+)
+hipodogeEnemy.attacks.push( 
     { name: '💧', id: 'water-button' },
     { name: '💧', id: 'water-button' },
     { name: '💧', id: 'water-button' },
@@ -104,8 +124,22 @@ capipepo.attacks.push(
     { name: '💧', id: 'water-button' },
     { name: '🔥', id: 'fire-button' }
 )
+capipepoEnemy.attacks.push( 
+    { name: '🌱', id: 'ground-button' },
+    { name: '🌱', id: 'ground-button' },
+    { name: '🌱', id: 'ground-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '🔥', id: 'fire-button' }
+)
 
 ratigueya.attacks.push( 
+    { name: '🔥', id: 'fire-button' },
+    { name: '🔥', id: 'fire-button' },
+    { name: '🔥', id: 'fire-button' },
+    { name: '💧', id: 'water-button' },
+    { name: '🌱', id: 'ground-button' }
+)
+ratigueyaEnemy.attacks.push( 
     { name: '🔥', id: 'fire-button' },
     { name: '🔥', id: 'fire-button' },
     { name: '🔥', id: 'fire-button' },
@@ -142,7 +176,6 @@ function startGame() {
 }
 
 function selectPlayerPet() {
-    // chooseAttackSection.style.display = 'flex'
     selectPetSection.style.display = 'none'
     seeMapSection.style.display = 'flex'
     
@@ -161,7 +194,6 @@ function selectPlayerPet() {
 
     extractAttacks(petPlayer) 
     startMap()
-    selectEnemyPet()
 }
 
 function extractAttacks(petPlayer) {
@@ -214,11 +246,9 @@ function attacksSequence(){
     })
 } 
 
-function selectEnemyPet() {
-    let randomPet = random(0, mokepones.length -1)  
-
-    petEnemySpan.innerHTML = mokepones[randomPet].name
-    mokeponEnemyAttacks = mokepones[randomPet].attacks 
+function selectEnemyPet(enemy) {
+    petEnemySpan.innerHTML = enemy.name
+    mokeponEnemyAttacks = enemy.attacks 
 
     attacksSequence()
 }
@@ -292,6 +322,9 @@ function checkVictories () {
 }
 
 function createMessage (result) { 
+
+    resetGameButton.style.display = 'block'    
+
     let newPlayerAttack = document.createElement('p')
     let newEnemyAttack = document.createElement('p')
 
@@ -304,7 +337,6 @@ function createMessage (result) {
 }
 
 function creatFinalMessage(finalResult) { 
-    resetGameButton.style.display = 'block'    
     messagesSection.innerHTML = finalResult
 }
 
@@ -380,8 +412,6 @@ function pressKey(event) {
 function startMap() {
     petPlayerObject = getPetObject(petPlayer)
 
-    map.width = 600 
-    map.height = 400
     interval = setInterval(drawCanvas, 50)
 
     window.addEventListener('keydown', pressKey)
@@ -417,6 +447,11 @@ function checkCollision(enemy) {
         return
     }
     stopMovement()
+    clearInterval(interval)
+    chooseAttackSection.style.display = 'flex'
+    seeMapSection.style.display = 'none'
+    selectEnemyPet(enemy)
+
 }
 
 window.addEventListener("load", startGame)
