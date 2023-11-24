@@ -19,6 +19,7 @@ const attacksContainer = document.getElementById("attacksContainer")
 const seeMapSection = document.getElementById("see-map")
 const map = document.getElementById("map")
 
+let playerId = null
 let mokepones = [] 
 let mokeponesOption 
 let mokeponAttacks
@@ -183,6 +184,7 @@ function joinGame() {
                 res.text()
                     .then( function(response) {
                         console.log(response)
+                        playerId = response
                     })
             }
         })
@@ -205,8 +207,22 @@ function selectPlayerPet() {
         alert("You must choose a pet")
     }
 
+    selectMokepon(petPlayer)
+
     extractAttacks(petPlayer) 
     startMap()
+}
+
+function selectMokepon(petPlayer) {
+    fetch(`http://localhost:8080/mokepon/${playerId}`, {
+        method: "post",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            mokepon: petPlayer
+        })
+    })
 }
 
 function extractAttacks(petPlayer) {
