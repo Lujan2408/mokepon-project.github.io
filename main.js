@@ -173,6 +173,19 @@ function startGame() {
     playerPetButton.addEventListener("click", selectPlayerPet)  
     resetGameButton.addEventListener("click", resetGame)
 
+    joinGame()
+}
+
+function joinGame() {
+    fetch("http://localhost:8080/join")
+        .then( function(res) {
+            if(res.ok) {
+                res.text()
+                    .then( function(response) {
+                        console.log(response)
+                    })
+            }
+        })
 }
 
 function selectPlayerPet() {
