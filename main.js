@@ -391,6 +391,9 @@ function drawCanvas() {
         map.height 
     )
     petPlayerObject.drawMokepon()
+
+    sendPosition(petPlayerObject.x, petPlayerObject.y)
+
     hipodogeEnemy.drawMokepon()
     capipepoEnemy.drawMokepon()
     ratigueyaEnemy.drawMokepon()
@@ -400,6 +403,19 @@ function drawCanvas() {
         checkCollision(capipepoEnemy)
         checkCollision(ratigueyaEnemy)
     }
+}
+
+function sendPosition(x,y) {
+    fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
+        method: "post",
+        headers: {
+            "Content-type": "application/json" 
+        },
+        body: JSON.stringify({
+            x: x,
+            y: y 
+        })
+    }) 
 }
 
 function moveUp() {
