@@ -18,13 +18,13 @@ class Player {
 
     updatePosition(x,y) {
         this.x = x 
-        this.y = y
-    } 
+        this.y = y 
+    }
 }
 
 class Mokepon {
-    constructor(name) {
-        this.name = name 
+    constructor(nombre) {
+        this.nombre = nombre 
     }
 }
 
@@ -41,8 +41,8 @@ app.get("/join", (req, res) => {
 
 app.post('/mokepon/:playerId', (req, res) => {
     const playerId = req.params.playerId || ""
-    const name = req.body.mokepon || ""
-    const mokepon = new Mokepon(name)
+    const nombre = req.body.mokepon || ""
+    const mokepon = new Mokepon(nombre)
 
     const playerIndex = players.findIndex((player) => playerId === player.id)
     
@@ -55,7 +55,7 @@ app.post('/mokepon/:playerId', (req, res) => {
     res.end()
 })
 
-app.post('/mokepon/:playerId/position', (req, res) => {
+app.post("/mokepon/:playerId/position", (req, res) => {
     const playerId = req.params.playerId || ""
     const x = req.body.x || 0 
     const y = req.body.y || 0 
@@ -63,9 +63,14 @@ app.post('/mokepon/:playerId/position', (req, res) => {
     const playerIndex = players.findIndex((player) => playerId === player.id)
     
     if(playerIndex >= 0) {
-        players[playerIndex].updatePosition(x, y)
+        players[playerIndex].updatePosition(x,y)
     }
-    res.end()
+
+    const enemies = players.filter((player) => playerId != player.id) 
+
+    res.send({
+        enemies
+     })
 })
 
 app.listen(8080, () => {
